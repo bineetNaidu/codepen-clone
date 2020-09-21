@@ -7,6 +7,7 @@ import "codemirror/theme/material.css";
 import "codemirror/mode/xml/xml"; // HTML
 import "codemirror/mode/javascript/javascript"; // JS
 import "codemirror/mode/css/css"; // CSS
+import "./Editor.css";
 
 function Editor({ label, language, value, onChange }) {
   const handleChange = (editor, data, value) => onChange(value);
