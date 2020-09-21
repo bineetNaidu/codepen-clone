@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "./Editor";
 
 // STATICS
@@ -9,10 +9,25 @@ function App() {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [javascript, setJavascript] = useState("");
+  const [srcDoc, setSrcDoc] = useState("");
 
   // HOOKS && CONTEXTS
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSrcDoc(`
+      <html>
+  <style>${css}</style>
+  <body>${html}</body>
+  <script>${javascript}</script>
+  </html>
+  `);
+    }, 250);
+
+    return () => clearTimeout(timeoutId);
+  }, [html, css, javascript]);
 
   // FUNCTIONS
+
   return (
     <>
       <div className="pane top-pane">
@@ -27,6 +42,7 @@ function App() {
       </div>
       <div className="pane">
         <iframe
+          srcDoc={srcDoc}
           title="output"
           sandbox="allow-scripts"
           frameBorder={0}
